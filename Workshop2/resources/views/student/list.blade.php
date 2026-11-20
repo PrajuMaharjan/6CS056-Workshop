@@ -1,58 +1,43 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Students</title>
-    </head>
+<x-layouts.app title="Students">
+    <h1>Students</h1>
 
-    <body>
-        <h1>Students</h1>
+    <a href="{{ route('students.create') }}" class="btn">Create Student</a>
 
-        @if(session('success'))
-            <p>{{ session('success') }}</p>
-        @endif
+    <table>
+        <thead>
+           <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
 
-        <a href="{{ route('students.create') }}">Create Student</a>
-
-        <table border="1" cellpadding="10">
-            <thead>
+        <tbody>
+            @forelse($students as $student)
                 <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Phone</th>
-                    <th>Actions</th>
+                    <td>{{ $student->id }}</td>
+                    <td>{{ $student->name }}</td>
+                    <td>{{ $student->email }}</td>
+                    <td>{{ $student->phone }}</td>
+
+                    <td>
+
+                        <a href="{{ route('students.show', $student) }}">View</a>
+
+                        <a href="{{ route('students.edit', $student) }}">Edit</a>
+
+                        <x-delete-form :action="route('students.destroy', $student)" />
+
+                    </td>
                 </tr>
-            </thead>
-
-            <tbody>
-                @forelse($students as $student)
-                    <tr>
-                        <td>{{ $student->id }}</td>
-                        <td>{{ $student->name }}</td>
-                        <td>{{ $student->email }}</td>
-                        <td>{{ $student->phone }}</td>
-
-                        <td>
-                            <a href="{{ route('students.show', $student->id) }}">View</a>
-
-                            <a href="{{ route('students.edit', $student->id) }}">Edit</a>
-
-                            <form action="{{ route('students.destroy', $student->id) }}"
-                                  method="POST"
-                                  style="display:inline"
-                                  onsubmit="return confirm('Are you sure you want to delete this student?')">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit">Delete</button>
-                            </form>
-                        </td>
-                    </tr>
+    
                 @empty
-                    <tr>
-                        <td colspan="5">No students found.</td>
-                    </tr>
-                @endforelse
-            </tbody>
-        </table>
-    </body>
-</html>
+                <tr>
+                    <td colspan="5">No students found.</td>
+                </tr>
+            @endforelse
+        </tbody>
+    </table>
+</x-layouts.app>
