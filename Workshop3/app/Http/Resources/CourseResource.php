@@ -15,12 +15,13 @@ class CourseResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'name' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'duration' => 'required|integer|min:1',
-            'fee' => 'required|numeric|min:0',
-            'difficulty' => ['required',Rule::in(['Easy','Medium','Hard'])],
-            'is_active'=>'boolean',
+            'id' => $this->id,
+            'name' => $this->name,
+            'description' => $this->description,
+            'duration' => $this->duration,
+            'fee' => $this->fee,
+            'difficulty' => $this->difficulty,
+            'is_active' => $this->is_active,
         ];
     }
 }
