@@ -1,5 +1,5 @@
 <footer class="footer">
     <p>
-        &copy; {{ date('Y') }} Training Institute Management System &middot;
+        &copy; {{ date('Y') }} Praju Maharjan &middot;
     </p>
 </footer>
